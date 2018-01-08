@@ -1,12 +1,15 @@
 from flask import Flask, request, jsonify
 import json
 import requests
+import os
 
 app = Flask(__name__)
-port = 5000
+port = int(os.environ["PORT"])
+print(port)
 
 @app.route('/', methods=['POST'])
 def index():
+  print(port)
   data = json.loads(request.get_data().decode('utf-8'))
 
   # FETCH THE CRYPTO NAME
@@ -30,4 +33,4 @@ def errors():
   print(json.loads(request.get_data()))
   return jsonify(status=200)
 
-app.run(port=port)
+app.run(port=port, host="0.0.0.0")
